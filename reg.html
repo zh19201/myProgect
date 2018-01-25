@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册页面</title>
+    <link rel="stylesheet" type="text/css" href="css/reg.css">
+    <link rel="stylesheet" type="text/css" href="css/iconfont.css">
+</head>
+<body>
+<div id="regBox">
+    <div class="regTop">
+
+        <div class="regTopNavBox">
+            <a href="javascript:;">OPPO官网</a>
+            <a href="javascript:;">OPPO社区</a>
+            <a href="javascript:;">ColorOS</a>
+        </div>
+
+    </div>
+   <div class="countBox">
+      <h3>
+            注册OPPO账号
+         </h3>
+       <form method="post" action="regsave.php">
+         <input type="text" name="pNumber" placeholder="请输入手机号码" id="userpNumber"/>
+         <span id="usernameMsg"></span>
+           <img src="images/yzImg.jpg">
+           <div class="HoverNav">
+            <img src="images/yzHoverImg.jpg">
+           </div>
+           <!--安全条例-->
+           <div class="rules">
+           <input type="checkbox" name="CheckBut"/>&nbsp;&nbsp;我已阅读并同意&nbsp;<a href="javascript:;">《OPPO账户注册协议》</a>
+           </div>
+           <!--注册按钮-->
+           <input type="submit" name="regButton" value="立即注册" id="regBut">
+        </form>
+
+         <!--尾部-->
+        <footer>
+          © 2005 - 2017 OPPO 版权所有 粤ICP备14056724号-2 联系方式：4001-666-888
+          </footer>
+   </div>
+
+
+     <!--最后一个div-->
+     <script type="text/javascript" src="js/jquery-1.8.3.js"></script>
+      </div>
+</body>
+</html>
+<!-- 页面前端验证 -->
+<!--  验证用户名是否存在 -->
+<script type="text/javascript">
+
+    var usernameExists = true;
+$(function () {
+    //用户名存在性验证
+    $("#userpNumber").blur(function () {
+            $.ajax({
+                url:"usercheck.php",
+                method:"get",
+                data:{"pNumber":$("#userpNumber").val()},
+                success:function (data) {
+                    if(data=="0"){
+                        usernameExists = false;
+                        $("#usernameMsg").html("该用户名可用");
+                         alert("该用户名可用");
+                    }else{
+                        usernameExists = true;
+                        $("#usernameMsg").html("该用户名已存在");
+                         alert("该用户名已存在");
+                    }
+                }
+            });
+        });
+
+    $("#regBut").submit(function () {
+        if(usernameExists){
+            alert("亲，用户名已经存在");
+            return false;//阻止浏览器的默认行为。
+        }
+    });
+});
+
+ </script>
